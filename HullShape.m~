@@ -1,0 +1,10 @@
+function [sides, hullCoords] = HullShape(xs,ys)
+
+k = convhull(xs,ys);
+%sides = length(xs(k))
+sides = length(unique(k))
+plot(xs(k),ys(k),'g-')
+hullCoords = []
+hullCoords = 
+
+end
