@@ -1,4 +1,4 @@
-function [sides, orderedCoords] = HullShape(coords)
+function [sides, order] = HullShape(coords)
 
 k = convhull(coords(1,:),coords(2,:));
 sides = length(unique(k));
@@ -8,9 +8,9 @@ hullCoords = []
 
 hullCoords(:,1) = coords(1,(unique(k)));
 hullCoords(:,2) = coords(2,(unique(k)));% unused but could be useful
-orderedCoords = coords(:,k);
+order = k;
 
-plot(coords(1,k),coords(2,k),'g-');
+plot(coords(1,k),ys(k),'g-');
 
 
 end
