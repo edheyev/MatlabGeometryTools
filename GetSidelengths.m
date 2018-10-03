@@ -9,6 +9,7 @@ for i = 1:length(coords)-1
    
    thislength = sqrt(((x2-x1)^2)+((y2-y1)^2));
    sideLengths = [sideLengths, thislength];
+   
 end
 
 end

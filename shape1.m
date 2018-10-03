@@ -3,36 +3,58 @@ close all
 hold on
 %make random points
 coords = randpoints(0, 100, 4);
-[sides, orderedCoords] = HullShape(coords) % find hull shape and sides
+
+%perfectSquare
+%coords = [-2, -2, 2, 2; -2, 2, -2, 2]
+
+%rectangle
+%coords = [-20, -20, 20, 20; -2, 2, -2, 2];
+
+[sides, orderedCoords] = HullShape(coords); % find hull shape and sides
 
 sideLengths = GetSidelengths(orderedCoords); % get side lengths
 sideVariance  = std(sideLengths)/ mean(sideLengths);
-cornerAngles = GetCornerAngles(orderedCoords, sideLengths);% not working
+
+cornerAngles = GetCornerAngles(orderedCoords, sideLengths);
 cornerVariance = std(cornerAngles)/ mean(cornerAngles);
 
-
-plot(coords(1,:),coords(2,:),'o')
-xlim([min(coords(1,:))-2 max(coords(1,:))+2])
-ylim([min(coords(2,:))-2 max(coords(2,:))+2])
+distanceFromCentre = GetDistanceFromCentre(coords);
+meanDistanceFromCentre = mean(distanceFromCentre);
+irregularity = std(distanceFromCentre)/ mean(distanceFromCentre);
 
 if (sides == 3)
-    'TRIANGLE'
+    if((sum(cornerAngles>60))>1)
+        disp("ACUTE TRIANGLE");
+    elseif ((sum(cornerAngles>60))==1)
+        disp("OBTUSE TRIANGLE");
+    else
+        disp("EQUALATERAL TRIANGLE");
+    end
 elseif (sides == 4)
-    'QUADRILATERAL'
+    disp("QUADRILATERAL");
 elseif (sides == 5)
-    'PENTALATERAL'
+    disp("PENTALATERAL");
 elseif (sides == 6)
-    'HEXATALATERAL'
+    disp("HEXATALATERAL");
 elseif (sides == 7)
-    'SEPTALATERAL'
+    disp("SEPTALATERAL");
 elseif (sides == 8)
-    'OCTOLATERAL'   
+    disp("OCTOLATERA"); 
 elseif (sides == 9)
-    'NONALATERAL'
+    disp("NONALATERAL");
 elseif (sides == 10)
-    'DECALATERAL'
+    disp("DECALATERAL");
 end
 
+
+disp("Corner Var: " + cornerVariance);
+disp("Side Var: " + sideVariance);
+disp("Irregularity Var from Centroid: " + irregularity);
+%disp("Mean distance from Centroid: " + meanDistanceFromCentre);
+
+plot(coords(1,:),coords(2,:),'o');
+xlim([min(coords(1,:))-2 max(coords(1,:))+2]);
+ylim([min(coords(2,:))-2 max(coords(2,:))+2]);
 
 
 
